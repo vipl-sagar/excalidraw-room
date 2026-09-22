@@ -2,3 +2,39 @@ yarn
 yarn start:dev
 
 pm2 start pm2.production.json
+
+
+
+cd /Users/vasundhara-mac/Sagar/GitHub_Clones/excalidraw-room
+
+scp -r dist package.json yarn.lock .env.production vipl@192.168.1.236:/tmp/excalidraw-room-deploy/
+
+
+
+ssh vipl@192.168.1.236 "mkdir -p /tmp/excalidraw-room-deploy"
+
+
+ssh vipl@192.168.1.236
+
+
+sudo cp -a /opt/excalidraw-room /opt/excalidraw-room.backup
+
+
+sudo cp -a /tmp/excalidraw-room-deploy/dist /opt/excalidraw-room/
+sudo cp /tmp/excalidraw-room-deploy/package.json /opt/excalidraw-room/
+sudo cp /tmp/excalidraw-room-deploy/yarn.lock /opt/excalidraw-room/
+sudo cp /tmp/excalidraw-room-deploy/.env.production /opt/excalidraw-room/
+
+
+
+
+cd /opt/excalidraw-room
+yarn install --frozen-lockfile --production
+
+
+
+cat .env.production
+
+
+pm2 restart excalidraw-room
+
